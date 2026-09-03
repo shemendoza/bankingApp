@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.bankApp.bankingApp.RegistrationForm">
+  <grid id="27dc6" binding="registerPanel" layout-manager="GridLayoutManager" row-count="12" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="349" height="713"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="a414a" class="javax.swing.JLabel" binding="walleticonlabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false">
+            <minimum-size width="110" height="120"/>
+            <preferred-size width="110" height="120"/>
+            <maximum-size width="110" height="120"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font name="Segoe UI Black" size="32" style="1"/>
+          <foreground color="-16757021"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="smallsizewallet.png"/>
+          <iconTextGap value="5"/>
+          <opaque value="false"/>
+          <requestFocusEnabled value="false"/>
+          <text value=""/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="1"/>
+        </properties>
+      </component>
+      <grid id="f3cbd" binding="textPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties>
+          <alignmentX value="0.5"/>
+          <alignmentY value="0.5"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="68d1f" class="javax.swing.JLabel" binding="mlbbText">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <focusable value="true"/>
+              <font name="Segoe UI" size="48" style="1"/>
+              <foreground color="-16757536"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <inheritsPopupMenu value="true"/>
+              <opaque value="false"/>
+              <requestFocusEnabled value="true"/>
+              <text value="MLBB"/>
+              <verticalAlignment value="3"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="d49d8" class="javax.swing.JLabel" binding="titleText">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <font name="Segoe UI" size="20" style="1"/>
+              <foreground color="-15374912"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <text value="My Local Banking Buddy"/>
+              <verticalAlignment value="1"/>
+              <verticalTextPosition value="1"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="871d">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="67074" class="javax.swing.JButton" binding="loginBtn">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-12150279"/>
+          <font name="Segoe UI" size="14" style="1"/>
+          <foreground color="-1"/>
+          <text value="Go to Login"/>
+        </properties>
+      </component>
+      <component id="a1e64" class="javax.swing.JButton" binding="signUpBtn">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="Segoe UI" size="14" style="1"/>
+          <foreground color="-15374912"/>
+          <text value="Sign Up"/>
+        </properties>
+      </component>
+      <grid id="fbc6f" binding="contentPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="71f32" class="javax.swing.JLabel" binding="fullnameLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="1"/>
+              <foreground color="-525825"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <labelFor value="bfbf2"/>
+              <text value="Full Name:"/>
+            </properties>
+          </component>
+          <component id="bfbf2" class="javax.swing.JTextField" binding="fullnameField">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1642753"/>
+            </properties>
+          </component>
+          <component id="47921" class="javax.swing.JLabel" binding="emailLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="1"/>
+              <foreground color="-525825"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <labelFor value="313e8"/>
+              <text value="Email:"/>
+            </properties>
+          </component>
+          <component id="64a8b" class="javax.swing.JLabel" binding="mobilenumLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="1"/>
+              <foreground color="-525825"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <labelFor value="3de3f"/>
+              <name value="Mobile Number"/>
+              <text value="Mobile Number:"/>
+            </properties>
+          </component>
+          <component id="36f2b" class="javax.swing.JLabel" binding="mpinLabel">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="1"/>
+              <foreground color="-525825"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <labelFor value="a6ac0"/>
+              <name value="MPIN"/>
+              <requestFocusEnabled value="false"/>
+              <text value="MPIN (4-digit):"/>
+            </properties>
+          </component>
+          <component id="fb2ea" class="javax.swing.JLabel" binding="confirmmpinLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="1"/>
+              <foreground color="-525825"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <labelFor value="9392"/>
+              <name value=""/>
+              <requestFocusEnabled value="false"/>
+              <text value="Confirm MPIN:"/>
+              <toolTipText value="Confirm MPIN"/>
+            </properties>
+          </component>
+          <component id="313e8" class="javax.swing.JTextField" binding="emailField">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1642753"/>
+            </properties>
+          </component>
+          <component id="3de3f" class="javax.swing.JTextField" binding="mobilenumField">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1642753"/>
+            </properties>
+          </component>
+          <component id="a6ac0" class="javax.swing.JTextField" binding="mpinField">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1642753"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="9392" class="javax.swing.JTextField" binding="confirmmpinField">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1642753"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="88907" class="javax.swing.JLabel" binding="signupLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Segoe UI" size="28" style="1"/>
+          <foreground color="-16757794"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <requestFocusEnabled value="true"/>
+          <text value="Sign Up"/>
+        </properties>
+      </component>
+      <vspacer id="38b54">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="bf2c6">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="bd816">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="737ad" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-16757794"/>
+        </properties>
+      </component>
+      <component id="ffe75" class="javax.swing.JButton" binding="mainBtn">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-15374912"/>
+          <font name="Segoe UI" size="14" style="1"/>
+          <foreground color="-1"/>
+          <text value="Go back to main"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

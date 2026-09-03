@@ -1,25 +1,36 @@
 package com.bankApp.bankingApp;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Objects;
 import java.awt.*;
+import java.util.Objects;
 
-public class MainDashboard extends JFrame {
-    private JPanel mainPanel;
+public class RegistrationForm extends JFrame {
     private JLabel walleticonlabel;
-    private JLabel titleText;
-    private JLabel titleLine;
     private JLabel mlbbText;
-    private JButton loginBtn;
+    private JLabel titleText;
+    private JLabel signupLabel;
     private JButton signUpBtn;
-    private JLabel disclaimerLabel;
+    private JButton loginBtn;
+    private JPanel registerPanel;
+    private JPanel textPanel;
+    private JTextField fullnameField;
+    private JLabel fullnameLabel;
+    private JLabel emailLabel;
+    private JTextField emailField;
+    private JLabel mobilenumLabel;
+    private JPanel contentPanel;
+    private JLabel mpinLabel;
+    private JLabel confirmmpinLabel;
+    private JTextField mobilenumField;
+    private JTextField mpinField;
+    private JTextField confirmmpinField;
+    private JButton mainBtn;
 
-    MainDashboard() {
+    RegistrationForm() {
         setTitle("MLBB - Main Dashboard");
-        setContentPane(mainPanel);
+        setContentPane(registerPanel);
         setSize(380, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,12 +39,24 @@ public class MainDashboard extends JFrame {
 
         loginBtn.putClientProperty("JButton.buttonType", "roundRect");
         signUpBtn.putClientProperty("JButton.buttonType", "roundRect");
+        mainBtn.putClientProperty("JButton.buttonType", "roundRect");
         signUpBtn.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        fullnameField.putClientProperty("JComponent.roundRect", true);
+        fullnameField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        emailField.putClientProperty("JComponent.roundRect", true);
+        emailField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        mobilenumField.putClientProperty("JComponent.roundRect", true);
+        mobilenumField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        mpinField.putClientProperty("JComponent.roundRect", true);
+        mpinField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        confirmmpinField.putClientProperty("JComponent.roundRect", true);
+        confirmmpinField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
 
-        signUpBtn.addActionListener(e -> {
-            new RegistrationForm();
+        mainBtn.addActionListener(e -> {
+            new MainDashboard();
             dispose();
         });
+
         // Window icon
         ImageIcon icon = new ImageIcon(
                 Objects.requireNonNull(
@@ -51,7 +74,6 @@ public class MainDashboard extends JFrame {
 
         Image backgroundImage = backgroundIcon.getImage();
 
-        // Paint background on mainPanel
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -69,17 +91,13 @@ public class MainDashboard extends JFrame {
 
         backgroundPanel.setLayout(new BorderLayout());
 
-        // Put your existing components panel on top
-        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+        backgroundPanel.add(registerPanel, BorderLayout.CENTER);
 
-        // Make the existing panel transparent
-        mainPanel.setOpaque(false);
+        registerPanel.setOpaque(false);
 
-        // Use the new background panel as the content pane
         setContentPane(backgroundPanel);
 
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
@@ -91,6 +109,7 @@ public class MainDashboard extends JFrame {
         }
 
         //Thread-safe way to launch Swing GUIs
-        SwingUtilities.invokeLater(MainDashboard::new);
+        SwingUtilities.invokeLater(RegistrationForm::new);
     }
 }
+
