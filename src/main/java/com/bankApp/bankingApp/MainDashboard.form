@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.bankApp.bankingApp.MainDashboard">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="397" height="609"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="5cbaa" class="javax.swing.JLabel" binding="walleticonlabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false">
+            <minimum-size width="110" height="120"/>
+            <preferred-size width="110" height="120"/>
+            <maximum-size width="110" height="120"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font name="Segoe UI Black" size="32" style="1"/>
+          <foreground color="-16757021"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="smallsizewallet.png"/>
+          <iconTextGap value="5"/>
+          <opaque value="false"/>
+          <requestFocusEnabled value="false"/>
+          <text value=""/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="1"/>
+        </properties>
+      </component>
+      <grid id="8f66c" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties>
+          <alignmentX value="0.5"/>
+          <alignmentY value="0.5"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="aed80" class="javax.swing.JLabel" binding="mlbbText">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <focusable value="true"/>
+              <font name="Segoe UI" size="48" style="1"/>
+              <foreground color="-16757536"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <inheritsPopupMenu value="true"/>
+              <opaque value="false"/>
+              <requestFocusEnabled value="true"/>
+              <text value="MLBB"/>
+              <verticalAlignment value="3"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="16000" class="javax.swing.JLabel" binding="titleText">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="24" style="1"/>
+              <foreground color="-15374912"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <text value="My Local Banking Buddy"/>
+            </properties>
+          </component>
+          <component id="5cc4d" class="javax.swing.JLabel" binding="titleLine">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="3"/>
+              <foreground color="-11364928"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <requestFocusEnabled value="true"/>
+              <text value="Every Money Needs a Buddy."/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="236ee" class="javax.swing.JButton" binding="signUpBtn">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="Segoe UI" size="14" style="1"/>
+          <foreground color="-15374912"/>
+          <text value="Sign Up"/>
+        </properties>
+      </component>
+      <component id="78989" class="javax.swing.JLabel" binding="disclaimerLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <autoscrolls value="false"/>
+          <doubleBuffered value="false"/>
+          <focusable value="true"/>
+          <font name="Segoe UI" size="8" style="0"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <iconTextGap value="0"/>
+          <requestFocusEnabled value="false"/>
+          <text value="&lt;html&gt;Disclaimer: &lt;br&gt;This is an educational project and has no affiliation with any bank or Mobile Legends: Bang Bang&lt;/html&gt;"/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="0"/>
+        </properties>
+      </component>
+      <vspacer id="1f829">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="9214d">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="a0b56" class="javax.swing.JButton" binding="loginBtn">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-15374912"/>
+          <font name="Segoe UI" size="14" style="1"/>
+          <foreground color="-1"/>
+          <text value="Login"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
