@@ -1,25 +1,31 @@
 package com.bankApp.bankingApp;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Objects;
-import java.awt.*;
 
-public class MainDashboard extends JFrame {
-    private JPanel mainPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
+
+public class LoginForm extends JFrame {
     private JLabel walleticonlabel;
-    private JLabel titleText;
-    private JLabel titleLine;
+    private JPanel textPanel;
     private JLabel mlbbText;
+    private JLabel titleText;
     private JButton loginBtn;
     private JButton signUpBtn;
-    private JLabel disclaimerLabel;
+    private JPanel contentPanel;
+    private JLabel mobilenumLabel;
+    private JLabel mpinLabel;
+    private JTextField mobilenumField;
+    private JTextField mpinField;
+    private JLabel loginLabel;
+    private JButton mainBtn;
+    private JPanel loginPanel;
+    private JButton forgotBtn;
 
-    MainDashboard() {
-        setTitle("MLBB - Main Dashboard");
-        setContentPane(mainPanel);
+    LoginForm() {
+        setTitle("MLBB - Login");
+        setContentPane(loginPanel);
         setSize(380, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,15 +33,20 @@ public class MainDashboard extends JFrame {
 
 
         loginBtn.putClientProperty("JButton.buttonType", "roundRect");
+        forgotBtn.putClientProperty("JButton.buttonType", "roundRect");
         signUpBtn.putClientProperty("JButton.buttonType", "roundRect");
+        mainBtn.putClientProperty("JButton.buttonType", "roundRect");
         signUpBtn.putClientProperty("JComponent.outline", new Color(21, 101, 192));
-
-        signUpBtn.addActionListener(e -> {
-            new RegistrationForm();
+        mobilenumField.putClientProperty("JComponent.roundRect", true);
+        mobilenumField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        mpinField.putClientProperty("JComponent.roundRect", true);
+        mpinField.putClientProperty("JComponent.outline", new Color(21, 101, 192));
+        mainBtn.addActionListener(e -> {
+            new MainDashboard();
             dispose();
         });
-        loginBtn.addActionListener(e -> {
-            new LoginForm();
+        signUpBtn.addActionListener(e -> {
+            new RegistrationForm();
             dispose();
         });
         // Window icon
@@ -55,7 +66,6 @@ public class MainDashboard extends JFrame {
 
         Image backgroundImage = backgroundIcon.getImage();
 
-        // Paint background on mainPanel
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -73,17 +83,13 @@ public class MainDashboard extends JFrame {
 
         backgroundPanel.setLayout(new BorderLayout());
 
-        // Put your existing components panel on top
-        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+        backgroundPanel.add(loginPanel, BorderLayout.CENTER);
 
-        // Make the existing panel transparent
-        mainPanel.setOpaque(false);
+        loginPanel.setOpaque(false);
 
-        // Use the new background panel as the content pane
         setContentPane(backgroundPanel);
 
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
@@ -95,6 +101,6 @@ public class MainDashboard extends JFrame {
         }
 
         //Thread-safe way to launch Swing GUIs
-        SwingUtilities.invokeLater(MainDashboard::new);
+        SwingUtilities.invokeLater(LoginForm::new);
     }
 }

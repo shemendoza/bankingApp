@@ -137,6 +137,8 @@
             </constraints>
             <properties>
               <background color="-1642753"/>
+              <font name="Segoe UI" size="12" style="1"/>
+              <foreground color="-14787360"/>
             </properties>
           </component>
           <component id="47921" class="javax.swing.JLabel" binding="emailLabel">
@@ -208,6 +210,8 @@
             </constraints>
             <properties>
               <background color="-1642753"/>
+              <font name="Segoe UI" size="12" style="1"/>
+              <foreground color="-14787360"/>
             </properties>
           </component>
           <component id="3de3f" class="javax.swing.JTextField" binding="mobilenumField">
@@ -218,6 +222,8 @@
             </constraints>
             <properties>
               <background color="-1642753"/>
+              <font name="Segoe UI" size="12" style="1"/>
+              <foreground color="-14787360"/>
             </properties>
           </component>
           <component id="a6ac0" class="javax.swing.JTextField" binding="mpinField">
@@ -228,6 +234,8 @@
             </constraints>
             <properties>
               <background color="-1642753"/>
+              <font name="Segoe UI" size="12" style="1"/>
+              <foreground color="-14787360"/>
               <text value=""/>
             </properties>
           </component>
@@ -239,6 +247,9 @@
             </constraints>
             <properties>
               <background color="-1642753"/>
+              <focusable value="true"/>
+              <font name="Segoe UI" size="12" style="1"/>
+              <foreground color="-14787360"/>
               <text value=""/>
             </properties>
           </component>

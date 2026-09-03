@@ -29,7 +29,7 @@ public class RegistrationForm extends JFrame {
     private JButton mainBtn;
 
     RegistrationForm() {
-        setTitle("MLBB - Main Dashboard");
+        setTitle("MLBB - Sign Up");
         setContentPane(registerPanel);
         setSize(380, 600);
         setResizable(false);
@@ -54,6 +54,10 @@ public class RegistrationForm extends JFrame {
 
         mainBtn.addActionListener(e -> {
             new MainDashboard();
+            dispose();
+        });
+        loginBtn.addActionListener(e -> {
+            new LoginForm();
             dispose();
         });
 
