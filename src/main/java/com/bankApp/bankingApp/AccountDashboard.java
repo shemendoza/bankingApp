@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 public class AccountDashboard extends JFrame {
-    private JPanel dashboardPanel;
+    private JPanel accountPanel;
     private JPanel bottombuttonsPanel;
     private JButton mainBtn;
     private JPanel welcomePanel;
@@ -73,7 +73,7 @@ public class AccountDashboard extends JFrame {
 
 
         setTitle("MLBB - Account Dashboard");
-        setContentPane(dashboardPanel);
+        setContentPane(accountPanel);
         setSize(380, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,9 +176,9 @@ public class AccountDashboard extends JFrame {
 
         backgroundPanel.setLayout(new BorderLayout());
 
-        backgroundPanel.add(dashboardPanel, BorderLayout.CENTER);
+        backgroundPanel.add(accountPanel, BorderLayout.CENTER);
 
-        dashboardPanel.setOpaque(false);
+        accountPanel.setOpaque(false);
 
         setContentPane(backgroundPanel);
 
