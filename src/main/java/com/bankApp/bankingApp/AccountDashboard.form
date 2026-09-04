@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.bankApp.bankingApp.AccountDashboard">
+  <grid id="27dc6" binding="dashboardPanel" layout-manager="GridLayoutManager" row-count="15" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="570" height="1823"/>
+    </constraints>
+    <properties>
+      <opaque value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="f969e" binding="bottombuttonsPanel" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="14" column="0" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties>
+          <background color="-1642753"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="ae0b2" class="javax.swing.JButton" binding="mainBtn">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1576961"/>
+              <borderPainted value="false"/>
+              <font name="Segoe UI" size="11" style="1"/>
+              <foreground color="-16759630"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="icons/main.png"/>
+              <opaque value="false"/>
+              <selected value="true"/>
+              <text value="Main"/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="66206" class="javax.swing.JButton" binding="cashinBtn">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1576961"/>
+              <borderPainted value="false"/>
+              <font name="Segoe UI" size="11" style="1"/>
+              <foreground color="-16759630"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="icons/cash_in.png"/>
+              <opaque value="false"/>
+              <text value="Cash In"/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="39983" class="javax.swing.JButton" binding="cashoutBtn">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1576961"/>
+              <borderPainted value="false"/>
+              <font name="Segoe UI" size="11" style="1"/>
+              <foreground color="-16759630"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="icons/cash_out.png"/>
+              <label value="Cash Out"/>
+              <opaque value="false"/>
+              <text value="Cash Out"/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+          <component id="c90b0" class="javax.swing.JButton" binding="profileBtn">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1576961"/>
+              <borderPainted value="false"/>
+              <font name="Segoe UI" size="11" style="1"/>
+              <foreground color="-16759630"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="icons/profile.png"/>
+              <label value="Profile"/>
+              <opaque value="false"/>
+              <text value="Profile"/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="3"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="c344" binding="welcomePanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+          <visible value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="82c1" class="javax.swing.JLabel" binding="hellonameLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="16" style="1"/>
+              <foreground color="-15586469"/>
+              <text value="Hello, [first name]"/>
+            </properties>
+          </component>
+          <component id="893c" class="javax.swing.JLabel" binding="welcomeLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="14" style="0"/>
+              <foreground color="-11574133"/>
+              <text value="Welcome to MLBB"/>
+            </properties>
+          </component>
+          <vspacer id="b40b0">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <grid id="d50b5" binding="balancePanel" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="15" left="15" bottom="15" right="15"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-16761686"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="51219" class="javax.swing.JLabel" binding="availablebalanceLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="12" style="0"/>
+              <foreground color="-525825"/>
+              <text value="AVAILABLE BALANCE"/>
+            </properties>
+          </component>
+          <component id="e6e77" class="javax.swing.JLabel" binding="balanceText">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="26" style="1"/>
+              <foreground color="-525825"/>
+              <text value="₱ 1,000,000.00"/>
+            </properties>
+          </component>
+          <component id="86b5b" class="javax.swing.JLabel" binding="balanceicon">
+            <constraints>
+              <grid row="0" column="2" row-span="5" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-525825"/>
+              <icon value="icons/balanceicon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <vspacer id="efbe7">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <hspacer id="36e44">
+            <constraints>
+              <grid row="0" column="1" row-span="6" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <component id="4a8fe" class="javax.swing.JLabel" binding="accountNumLabel">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="12" style="0"/>
+              <foreground color="-525825"/>
+              <text value="Account Number"/>
+            </properties>
+          </component>
+          <component id="34f1d" class="javax.swing.JLabel" binding="accountnumberText">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" size="13" style="1"/>
+              <foreground color="-525825"/>
+              <text value="1234 5678 9101"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="61143">
+        <constraints>
+          <grid row="13" column="0" row-span="1" col-span="5" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <grid id="26438" binding="contentPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="0" row-span="9" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="2d831" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <autoscrolls value="false"/>
+              <enabled value="true"/>
+              <focusable value="true"/>
+              <opaque value="false"/>
+              <requestFocusEnabled value="true"/>
+              <verifyInputWhenFocusTarget value="true"/>
+              <visible value="true"/>
+            </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+            <border type="none"/>
+            <children>
+              <grid id="3ba47" binding="recenttransactionsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="15" left="15" bottom="15" right="15"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-197121"/>
+                  <opaque value="false"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="6e39d" class="javax.swing.JLabel" binding="recentLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="16" style="1"/>
+                      <foreground color="-16759630"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/txn.png"/>
+                      <iconTextGap value="0"/>
+                      <text value="Recent Transactions"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="f5f2a" binding="recentScrollPanel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1379841"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-16759630"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="66bb1" class="javax.swing.JTable" binding="recentTable">
+                        <constraints/>
+                        <properties>
+                          <autoCreateRowSorter value="false"/>
+                          <background color="-1445633"/>
+                          <editingColumn value="3"/>
+                          <enabled value="false"/>
+                          <font name="Segoe UI" size="11" style="0"/>
+                          <foreground color="-16759630"/>
+                          <gridColor color="-16757542"/>
+                          <opaque value="true"/>
+                          <visible value="true"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <component id="10061" class="javax.swing.JButton" binding="historyBtn">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <alignmentX value="0.0"/>
+                      <background color="-197121"/>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="true"/>
+                      <enabled value="true"/>
+                      <focusPainted value="true"/>
+                      <focusable value="true"/>
+                      <font name="Segoe UI" size="11" style="1"/>
+                      <foreground color="-16759630"/>
+                      <hideActionText value="false"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="2"/>
+                      <icon value="icons/blue_arrow_icon.png"/>
+                      <iconTextGap value="5"/>
+                      <inheritsPopupMenu value="false"/>
+                      <opaque value="false"/>
+                      <selected value="false"/>
+                      <text value="View History"/>
+                      <verifyInputWhenFocusTarget value="true"/>
+                      <verticalAlignment value="0"/>
+                      <verticalTextPosition value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="bfa95" binding="alltransactionsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="15" left="15" bottom="15" right="15"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-197121"/>
+                  <opaque value="false"/>
+                  <visible value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="2d425" class="javax.swing.JLabel" binding="historyLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="16" style="1"/>
+                      <foreground color="-16759630"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/txn.png"/>
+                      <iconTextGap value="0"/>
+                      <text value="Transactions History"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="a5e45" binding="historyScrollPanel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1379841"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-16759630"/>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="beea8" class="javax.swing.JTable" binding="historyTable">
+                        <constraints/>
+                        <properties>
+                          <autoCreateRowSorter value="false"/>
+                          <background color="-1445633"/>
+                          <editingColumn value="3"/>
+                          <enabled value="false"/>
+                          <font name="Segoe UI" size="11" style="0"/>
+                          <foreground color="-16759630"/>
+                          <gridColor color="-16757542"/>
+                          <opaque value="false"/>
+                          <visible value="true"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <component id="1be98" class="javax.swing.JButton" binding="recentBtn">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <alignmentX value="0.0"/>
+                      <background color="-197121"/>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="true"/>
+                      <enabled value="true"/>
+                      <focusPainted value="true"/>
+                      <focusable value="true"/>
+                      <font name="Segoe UI" size="11" style="1"/>
+                      <foreground color="-16759630"/>
+                      <hideActionText value="false"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/blue_arrow_icon_reverse.png"/>
+                      <iconTextGap value="5"/>
+                      <inheritsPopupMenu value="false"/>
+                      <opaque value="false"/>
+                      <selected value="false"/>
+                      <text value="View Recent"/>
+                      <verifyInputWhenFocusTarget value="true"/>
+                      <verticalAlignment value="0"/>
+                      <verticalTextPosition value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="c4cdd" binding="maincashinPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+              <visible value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="1cafc" binding="cashinPanel" layout-manager="GridLayoutManager" row-count="8" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="15" left="15" bottom="15" right="15"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="7544e" class="javax.swing.JLabel" binding="cashinLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="16" style="1"/>
+                      <foreground color="-16759630"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/cash_in.png"/>
+                      <iconTextGap value="0"/>
+                      <text value="Cash In"/>
+                    </properties>
+                  </component>
+                  <vspacer id="426d0">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="2266d" class="javax.swing.JLabel" binding="cashinamountLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <text value="Enter amount:"/>
+                    </properties>
+                  </component>
+                  <component id="b6bcb" class="javax.swing.JLabel" binding="errorcashinlabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="12" style="0"/>
+                      <foreground color="-1"/>
+                      <text value="Make sure the value is numeric only."/>
+                    </properties>
+                  </component>
+                  <component id="3f381" class="javax.swing.JTextField" binding="cashinamountField">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <background color="-1642753"/>
+                      <font name="Segoe UI" size="12" style="1"/>
+                      <foreground color="-14787360"/>
+                    </properties>
+                  </component>
+                  <vspacer id="a7d70">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="ae35d" class="javax.swing.JButton" binding="submitcashinBtn">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-15303943"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="Submit"/>
+                    </properties>
+                  </component>
+                  <component id="be487" class="javax.swing.JButton" binding="cancelcashinBtn">
+                    <constraints>
+                      <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-8355194"/>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="Cancel"/>
+                    </properties>
+                  </component>
+                  <component id="e9cc0" class="javax.swing.JSeparator">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16757794"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="3e68d" binding="maincashoutPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+              <visible value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="f88c8" binding="cashoutPanel" layout-manager="GridLayoutManager" row-count="10" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="15" left="15" bottom="15" right="15"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="d9609" class="javax.swing.JLabel" binding="cashoutLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="16" style="1"/>
+                      <foreground color="-16759630"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/cash_out.png"/>
+                      <iconTextGap value="0"/>
+                      <text value="Cash Out"/>
+                    </properties>
+                  </component>
+                  <vspacer id="19a19">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="c5346" class="javax.swing.JLabel" binding="mobileLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <labelFor value="79bcc"/>
+                      <text value="Recipient Mobile Number:"/>
+                    </properties>
+                  </component>
+                  <component id="9e723" class="javax.swing.JLabel" binding="errorcashoutLabel">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="12" style="0"/>
+                      <foreground color="-1"/>
+                      <text value="Make sure the value is numeric only."/>
+                      <visible value="true"/>
+                    </properties>
+                  </component>
+                  <component id="79bcc" class="javax.swing.JTextField" binding="mobileField">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <background color="-1642753"/>
+                      <font name="Segoe UI" size="12" style="1"/>
+                      <foreground color="-14787360"/>
+                    </properties>
+                  </component>
+                  <vspacer id="d6aca">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="aeef5" class="javax.swing.JButton" binding="submitcashoutBtn">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-15303943"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="Submit"/>
+                    </properties>
+                  </component>
+                  <component id="41009" class="javax.swing.JButton" binding="cancelcashoutBtn">
+                    <constraints>
+                      <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-8355194"/>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="Cancel"/>
+                    </properties>
+                  </component>
+                  <component id="293e5" class="javax.swing.JLabel" binding="cashoutamountLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <labelFor value="93621"/>
+                      <text value="Enter cash out amount:"/>
+                    </properties>
+                  </component>
+                  <component id="93621" class="javax.swing.JTextField" binding="cashoutamountField">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <background color="-1642753"/>
+                      <font name="Segoe UI" size="12" style="1"/>
+                      <foreground color="-14787360"/>
+                    </properties>
+                  </component>
+                  <component id="dd67b" class="javax.swing.JSeparator">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16757794"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="44b75" binding="mainprofilePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+              <visible value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="f1e73" binding="profilePanel" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="15" left="15" bottom="15" right="15"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <doubleBuffered value="true"/>
+                  <enabled value="true"/>
+                  <focusable value="false"/>
+                  <opaque value="false"/>
+                  <requestFocusEnabled value="false"/>
+                  <verifyInputWhenFocusTarget value="false"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="abad4" class="javax.swing.JLabel" binding="profileLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="16" style="1"/>
+                      <foreground color="-16759630"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="4"/>
+                      <icon value="icons/profile.png"/>
+                      <iconTextGap value="0"/>
+                      <text value="Profile Information"/>
+                    </properties>
+                  </component>
+                  <component id="547c0" class="javax.swing.JSeparator">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16757794"/>
+                    </properties>
+                  </component>
+                  <component id="2ae8" class="javax.swing.JLabel" binding="nameLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalTextPosition value="11"/>
+                      <icon value="icons/name.png"/>
+                      <iconTextGap value="0"/>
+                      <labelFor value="79bcc"/>
+                      <text value="Name:"/>
+                    </properties>
+                  </component>
+                  <component id="d025e" class="javax.swing.JButton" binding="changempinBtn">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-15374912"/>
+                      <text value="Change MPIN"/>
+                    </properties>
+                  </component>
+                  <component id="e2264" class="javax.swing.JButton" binding="logoutBtn">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <alignmentX value="0.0"/>
+                      <background color="-16746011"/>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="true"/>
+                      <enabled value="true"/>
+                      <focusPainted value="true"/>
+                      <focusable value="true"/>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <hideActionText value="false"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="10"/>
+                      <icon value="icons/logout.png"/>
+                      <iconTextGap value="0"/>
+                      <inheritsPopupMenu value="false"/>
+                      <opaque value="false"/>
+                      <selected value="true"/>
+                      <text value="Log Out"/>
+                      <verifyInputWhenFocusTarget value="true"/>
+                      <verticalAlignment value="0"/>
+                      <verticalTextPosition value="0"/>
+                      <visible value="true"/>
+                    </properties>
+                  </component>
+                  <vspacer id="cd26f">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <vspacer id="25d45">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <vspacer id="cca5d">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="ea14a" class="javax.swing.JLabel" binding="nameText">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="13" style="1"/>
+                      <foreground color="-14787360"/>
+                      <horizontalAlignment value="2"/>
+                      <horizontalTextPosition value="2"/>
+                      <text value="[Full name]"/>
+                    </properties>
+                  </component>
+                  <component id="77f93" class="javax.swing.JLabel" binding="numberText">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="13" style="1"/>
+                      <foreground color="-14787360"/>
+                      <horizontalAlignment value="10"/>
+                      <horizontalTextPosition value="2"/>
+                      <text value="00000000000"/>
+                    </properties>
+                  </component>
+                  <component id="92022" class="javax.swing.JLabel" binding="numberLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalTextPosition value="11"/>
+                      <icon value="icons/number.png"/>
+                      <iconTextGap value="0"/>
+                      <labelFor value="93621"/>
+                      <text value="Number:"/>
+                    </properties>
+                  </component>
+                  <component id="86fe1" class="javax.swing.JLabel" binding="emailText">
+                    <constraints>
+                      <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="13" style="1"/>
+                      <foreground color="-14787360"/>
+                      <horizontalAlignment value="2"/>
+                      <horizontalTextPosition value="2"/>
+                      <text value="asdasdadasdasdasd"/>
+                    </properties>
+                  </component>
+                  <component id="6cccc" class="javax.swing.JLabel" binding="emailLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14" style="1"/>
+                      <foreground color="-1"/>
+                      <horizontalTextPosition value="11"/>
+                      <icon value="icons/email.png"/>
+                      <iconTextGap value="0"/>
+                      <labelFor value="93621"/>
+                      <text value="Email:"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <component id="af0a4" class="javax.swing.JLabel" binding="quoteText">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-16777216"/>
+          <font name="Segoe UI" size="11" style="1"/>
+          <foreground color="-269524"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <opaque value="false"/>
+          <text value="[Quote text here..]"/>
+        </properties>
+      </component>
+      <vspacer id="16b53">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+</form>

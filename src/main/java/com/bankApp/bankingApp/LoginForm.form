@@ -190,7 +190,7 @@
           <background color="-15374912"/>
           <font name="Segoe UI" size="14" style="1"/>
           <foreground color="-1"/>
-          <text value="Go back to main"/>
+          <text value="Go back to main dashboard"/>
         </properties>
       </component>
       <component id="1e7c0" class="javax.swing.JSeparator">
@@ -232,7 +232,8 @@
           <grid row="9" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-3486509"/>
+          <background color="-8355194"/>
+          <enabled value="true"/>
           <font name="Segoe UI" size="14" style="1"/>
           <foreground color="-1"/>
           <horizontalAlignment value="0"/>
