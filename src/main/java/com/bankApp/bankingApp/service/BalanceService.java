@@ -10,20 +10,14 @@ public class BalanceService {
 
     public void updateBalance(int userId, double newBalance) {
 
-        String sql = """
-                UPDATE users
-                SET balance = ?
-                WHERE id = ?
-                """;
+        try (Connection connection =
+                     DbConnectionHelper.getConnection()) {
 
-        try (Connection connection = DbConnectionHelper.getConnection();
-             PreparedStatement statement =
-                     connection.prepareStatement(sql)) {
-
-            statement.setDouble(1, newBalance);
-            statement.setInt(2, userId);
-
-            statement.executeUpdate();
+            updateBalance(
+                    connection,
+                    userId,
+                    newBalance
+            );
 
         } catch (SQLException e) {
 
@@ -31,6 +25,35 @@ public class BalanceService {
                     "Failed to update balance.",
                     e
             );
+        }
+    }
+
+    public void updateBalance(
+            Connection connection,
+            int userId,
+            double newBalance
+    ) throws SQLException {
+
+        String sql = """
+                UPDATE users
+                SET balance = ?
+                WHERE id = ?
+                """;
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setDouble(1, newBalance);
+            statement.setInt(2, userId);
+
+            int rowsUpdated =
+                    statement.executeUpdate();
+
+            if (rowsUpdated == 0) {
+                throw new IllegalArgumentException(
+                        "User account could not be found."
+                );
+            }
         }
     }
 }

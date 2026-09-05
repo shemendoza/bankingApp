@@ -4,8 +4,8 @@ import com.bankApp.bankingApp.model.Transaction;
 import com.bankApp.bankingApp.model.User;
 import com.bankApp.bankingApp.service.TransactionService;
 import com.bankApp.bankingApp.service.AuthService;
-import com.bankApp.bankingApp.service.BalanceService;
 import com.bankApp.bankingApp.service.TransferService;
+import com.bankApp.bankingApp.service.CashInService;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -74,15 +74,15 @@ public class AccountDashboard extends JFrame {
     private final User user;
     private final TransactionService transactionService;
     private final AuthService authService;
-    private final BalanceService balanceService;
     private final TransferService transferService;
+    private final CashInService cashInService;
 
     AccountDashboard(User user) {
         this.user = user;
         this.transactionService = new TransactionService();
         this.authService = new AuthService();
-        this.balanceService = new BalanceService();
         this.transferService = new TransferService();
+        this.cashInService = new CashInService();
 
         setTitle("MLBB - Account Dashboard");
         setContentPane(accountPanel);
@@ -741,58 +741,65 @@ public class AccountDashboard extends JFrame {
 
         ((javax.swing.text.AbstractDocument)
                 cashinamountField.getDocument())
-                .setDocumentFilter(new javax.swing.text.DocumentFilter() {
+                .setDocumentFilter(
+                        new javax.swing.text.DocumentFilter() {
 
-                    @Override
-                    public void insertString(
-                            javax.swing.text.DocumentFilter.FilterBypass fb,
-                            int offset,
-                            String string,
-                            javax.swing.text.AttributeSet attr)
-                            throws javax.swing.text.BadLocationException {
+                            @Override
+                            public void insertString(
+                                    javax.swing.text.DocumentFilter.FilterBypass fb,
+                                    int offset,
+                                    String string,
+                                    javax.swing.text.AttributeSet attr)
+                                    throws javax.swing.text.BadLocationException {
 
-                        if (string != null && string.matches("\\d*")) {
-                            super.insertString(
-                                    fb,
-                                    offset,
-                                    string,
-                                    attr
-                            );
+                                if (string != null
+                                        && string.matches("\\d*")) {
+
+                                    super.insertString(
+                                            fb,
+                                            offset,
+                                            string,
+                                            attr
+                                    );
+                                }
+                            }
+
+                            @Override
+                            public void replace(
+                                    javax.swing.text.DocumentFilter.FilterBypass fb,
+                                    int offset,
+                                    int length,
+                                    String text,
+                                    javax.swing.text.AttributeSet attrs)
+                                    throws javax.swing.text.BadLocationException {
+
+                                if (text != null
+                                        && text.matches("\\d*")) {
+
+                                    super.replace(
+                                            fb,
+                                            offset,
+                                            length,
+                                            text,
+                                            attrs
+                                    );
+                                }
+                            }
                         }
-                    }
-
-                    @Override
-                    public void replace(
-                            javax.swing.text.DocumentFilter.FilterBypass fb,
-                            int offset,
-                            int length,
-                            String text,
-                            javax.swing.text.AttributeSet attrs)
-                            throws javax.swing.text.BadLocationException {
-
-                        if (text != null && text.matches("\\d*")) {
-                            super.replace(
-                                    fb,
-                                    offset,
-                                    length,
-                                    text,
-                                    attrs
-                            );
-                        }
-                    }
-                });
+                );
     }
     private void processCashIn() {
 
         String amountText =
                 cashinamountField.getText().trim();
 
-        // Check empty
         if (amountText.isEmpty()) {
 
             errorcashinlabel.setText(
-                    "Please enter a cash in amount."
+                    "Please enter a cash-in amount."
             );
+
+            cashinamountField.requestFocus();
 
             return;
         }
@@ -809,50 +816,38 @@ public class AccountDashboard extends JFrame {
                     "Please enter a valid amount."
             );
 
+            cashinamountField.requestFocus();
+
             return;
         }
 
-        // Check positive amount
         if (amount <= 0) {
 
             errorcashinlabel.setText(
                     "Amount must be greater than zero."
             );
 
+            cashinamountField.requestFocus();
+
             return;
         }
 
         try {
 
-            // Calculate new balance
-            double newBalance =
-                    user.getBalance() + amount;
-
-            // Update database
-            balanceService.updateBalance(
-                    user.getId(),
-                    newBalance
+            /*
+             * CashInService handles:
+             * 1. Database balance update
+             * 2. Transaction insertion
+             * 3. In-memory balance update
+             */
+            cashInService.cashIn(
+                    user,
+                    amount
             );
 
-            // Update in-memory User object
-            user.addBalance(amount);
-
-            // Create cash-in transaction
-            Transaction transaction =
-                    new Transaction(
-                            user.getNumber(),
-                            "CASH_IN",
-                            amount,
-                            java.time.LocalDateTime.now(),
-                            user.getId()
-                    );
-
-            // Insert transaction into database
-            transactionService.saveTransaction(
-                    transaction
-            );
-
-            // Update balance displayed on dashboard
+            /*
+             * Update balance displayed on screen.
+             */
             balanceText.setText(
                     String.format(
                             "₱%.2f",
@@ -860,13 +855,15 @@ public class AccountDashboard extends JFrame {
                     )
             );
 
-            // Refresh transaction tables
+            /*
+             * Refresh transaction tables.
+             */
             loadTransactions();
 
-            // Clear input
+            /*
+             * Clear fields.
+             */
             cashinamountField.setText("");
-
-            // Clear error
             errorcashinlabel.setText("");
 
             JOptionPane.showMessageDialog(
@@ -882,6 +879,19 @@ public class AccountDashboard extends JFrame {
                     JOptionPane.INFORMATION_MESSAGE
             );
 
+        } catch (IllegalArgumentException e) {
+
+            errorcashinlabel.setText(
+                    e.getMessage()
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Cash-In Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
         } catch (RuntimeException e) {
 
             errorcashinlabel.setText(
@@ -892,7 +902,7 @@ public class AccountDashboard extends JFrame {
                     this,
                     "Unable to process cash-in:\n"
                             + e.getMessage(),
-                    "Cash-In Error",
+                    "Database Error",
                     JOptionPane.ERROR_MESSAGE
             );
 

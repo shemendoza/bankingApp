@@ -12,6 +12,14 @@ import java.time.LocalDateTime;
 
 public class TransferService {
 
+    private final BalanceService balanceService;
+    private final TransactionService transactionService;
+
+    public TransferService() {
+        this.balanceService = new BalanceService();
+        this.transactionService = new TransactionService();
+    }
+
     public boolean transfer(
             User sender,
             String receiverMobile,
@@ -33,13 +41,14 @@ public class TransferService {
         }
 
         if (sender.getNumber().equals(receiverMobile)) {
+
             throw new IllegalArgumentException(
                     "You cannot transfer money to your own account."
             );
         }
 
         String findReceiverSql = """
-                SELECT id, name, number, email, pin, balance, role
+                SELECT id, balance
                 FROM users
                 WHERE number = ?
                 FOR UPDATE
@@ -52,54 +61,45 @@ public class TransferService {
                 FOR UPDATE
                 """;
 
-        String updateSenderSql = """
-                UPDATE users
-                SET balance = ?
-                WHERE id = ?
-                """;
-
-        String updateReceiverSql = """
-                UPDATE users
-                SET balance = ?
-                WHERE id = ?
-                """;
-
-        String insertTransactionSql = """
-                INSERT INTO transactions
-                (user_number, type, amount, date, user_id)
-                VALUES (?, ?, ?, ?, ?)
-                """;
-
         try (Connection connection =
                      DbConnectionHelper.getConnection()) {
 
             try {
 
-                // Start database transaction
+                /*
+                 * Start database transaction.
+                 */
                 connection.setAutoCommit(false);
 
                 /*
-                 * Lock sender row and get the current balance
-                 * directly from the database.
+                 * Lock sender and get current balance.
                  */
                 double senderBalance;
 
                 try (PreparedStatement statement =
-                             connection.prepareStatement(lockSenderSql)) {
+                             connection.prepareStatement(
+                                     lockSenderSql
+                             )) {
 
-                    statement.setInt(1, sender.getId());
+                    statement.setInt(
+                            1,
+                            sender.getId()
+                    );
 
                     try (ResultSet resultSet =
                                  statement.executeQuery()) {
 
                         if (!resultSet.next()) {
+
                             throw new IllegalArgumentException(
                                     "Sender account could not be found."
                             );
                         }
 
                         senderBalance =
-                                resultSet.getDouble("balance");
+                                resultSet.getDouble(
+                                        "balance"
+                                );
                     }
                 }
 
@@ -128,7 +128,10 @@ public class TransferService {
                                      findReceiverSql
                              )) {
 
-                    statement.setString(1, receiverMobile);
+                    statement.setString(
+                            1,
+                            receiverMobile
+                    );
 
                     try (ResultSet resultSet =
                                  statement.executeQuery()) {
@@ -145,7 +148,9 @@ public class TransferService {
                                 resultSet.getInt("id");
 
                         receiverBalance =
-                                resultSet.getDouble("balance");
+                                resultSet.getDouble(
+                                        "balance"
+                                );
                     }
                 }
 
@@ -159,125 +164,63 @@ public class TransferService {
                         receiverBalance + amount;
 
                 /*
-                 * Update sender.
+                 * Update sender using BalanceService.
                  */
-                try (PreparedStatement statement =
-                             connection.prepareStatement(
-                                     updateSenderSql
-                             )) {
-
-                    statement.setDouble(
-                            1,
-                            newSenderBalance
-                    );
-
-                    statement.setInt(
-                            2,
-                            sender.getId()
-                    );
-
-                    statement.executeUpdate();
-                }
+                balanceService.updateBalance(
+                        connection,
+                        sender.getId(),
+                        newSenderBalance
+                );
 
                 /*
-                 * Update receiver.
+                 * Update receiver using BalanceService.
                  */
-                try (PreparedStatement statement =
-                             connection.prepareStatement(
-                                     updateReceiverSql
-                             )) {
+                balanceService.updateBalance(
+                        connection,
+                        receiverId,
+                        newReceiverBalance
+                );
 
-                    statement.setDouble(
-                            1,
-                            newReceiverBalance
-                    );
-
-                    statement.setInt(
-                            2,
-                            receiverId
-                    );
-
-                    statement.executeUpdate();
-                }
-
+                /*
+                 * Create one timestamp so both
+                 * transactions have the same date.
+                 */
                 LocalDateTime now =
                         LocalDateTime.now();
 
                 /*
                  * Sender transaction.
-                 *
-                 * user_number = receiver's mobile number
                  */
-                try (PreparedStatement statement =
-                             connection.prepareStatement(
-                                     insertTransactionSql
-                             )) {
+                Transaction senderTransaction =
+                        new Transaction(
+                                receiverMobile,
+                                "TRANSFER",
+                                amount,
+                                now,
+                                sender.getId()
+                        );
 
-                    statement.setString(
-                            1,
-                            receiverMobile
-                    );
-
-                    statement.setString(
-                            2,
-                            "TRANSFER"
-                    );
-
-                    statement.setDouble(
-                            3,
-                            amount
-                    );
-
-                    statement.setTimestamp(
-                            4,
-                            java.sql.Timestamp.valueOf(now)
-                    );
-
-                    statement.setInt(
-                            5,
-                            sender.getId()
-                    );
-
-                    statement.executeUpdate();
-                }
+                transactionService.saveTransaction(
+                        connection,
+                        senderTransaction
+                );
 
                 /*
                  * Receiver transaction.
-                 *
-                 * user_number = sender's mobile number
                  */
-                try (PreparedStatement statement =
-                             connection.prepareStatement(
-                                     insertTransactionSql
-                             )) {
+                Transaction receiverTransaction =
+                        new Transaction(
+                                sender.getNumber(),
+                                "RECEIVED",
+                                amount,
+                                now,
+                                receiverId
+                        );
 
-                    statement.setString(
-                            1,
-                            sender.getNumber()
-                    );
-
-                    statement.setString(
-                            2,
-                            "RECEIVED"
-                    );
-
-                    statement.setDouble(
-                            3,
-                            amount
-                    );
-
-                    statement.setTimestamp(
-                            4,
-                            java.sql.Timestamp.valueOf(now)
-                    );
-
-                    statement.setInt(
-                            5,
-                            receiverId
-                    );
-
-                    statement.executeUpdate();
-                }
+                transactionService.saveTransaction(
+                        connection,
+                        receiverTransaction
+                );
 
                 /*
                  * Everything succeeded.
@@ -285,16 +228,23 @@ public class TransferService {
                 connection.commit();
 
                 /*
-                 * Update sender's in-memory balance.
+                 * Update sender's in-memory balance
+                 * after successful database commit.
                  */
                 sender.deductBalance(amount);
+
+                /*
+                 * Add sender transaction to memory.
+                 */
+                sender.addTransaction(
+                        senderTransaction
+                );
 
                 return true;
 
             } catch (Exception e) {
 
                 /*
-                 * Something failed.
                  * Undo ALL database changes.
                  */
                 connection.rollback();
