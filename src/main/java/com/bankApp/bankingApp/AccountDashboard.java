@@ -5,6 +5,7 @@ import com.bankApp.bankingApp.model.User;
 import com.bankApp.bankingApp.service.TransactionService;
 import com.bankApp.bankingApp.service.AuthService;
 import com.bankApp.bankingApp.service.BalanceService;
+import com.bankApp.bankingApp.service.TransferService;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -74,11 +75,14 @@ public class AccountDashboard extends JFrame {
     private final TransactionService transactionService;
     private final AuthService authService;
     private final BalanceService balanceService;
+    private final TransferService transferService;
+
     AccountDashboard(User user) {
         this.user = user;
         this.transactionService = new TransactionService();
         this.authService = new AuthService();
         this.balanceService = new BalanceService();
+        this.transferService = new TransferService();
 
         setTitle("MLBB - Account Dashboard");
         setContentPane(accountPanel);
@@ -136,6 +140,15 @@ public class AccountDashboard extends JFrame {
             errorcashinlabel.setText("");
         });
 
+        submitcashoutBtn.addActionListener(
+                e -> processTransfer()
+        );
+
+        cancelcashoutBtn.addActionListener(e -> {
+            mobileField.setText("");
+            cashoutamountField.setText("");
+            errorcashoutLabel.setText("");
+        });
 
         balancePanel.setBorder(
                 new FlatLineBorder(
@@ -247,6 +260,7 @@ public class AccountDashboard extends JFrame {
         loadTransactions();
 
         setupCashInField();
+        setupTransferFields();
 
         setVisible(true);
     }
@@ -879,6 +893,262 @@ public class AccountDashboard extends JFrame {
                     "Unable to process cash-in:\n"
                             + e.getMessage(),
                     "Cash-In Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            e.printStackTrace();
+        }
+    }
+    private void setupTransferFields() {
+
+        javax.swing.text.DocumentFilter numbersOnlyFilter =
+                new javax.swing.text.DocumentFilter() {
+
+                    @Override
+                    public void insertString(
+                            javax.swing.text.DocumentFilter.FilterBypass fb,
+                            int offset,
+                            String string,
+                            javax.swing.text.AttributeSet attr)
+                            throws javax.swing.text.BadLocationException {
+
+                        if (string != null
+                                && string.matches("\\d*")) {
+
+                            super.insertString(
+                                    fb,
+                                    offset,
+                                    string,
+                                    attr
+                            );
+                        }
+                    }
+
+                    @Override
+                    public void replace(
+                            javax.swing.text.DocumentFilter.FilterBypass fb,
+                            int offset,
+                            int length,
+                            String text,
+                            javax.swing.text.AttributeSet attrs)
+                            throws javax.swing.text.BadLocationException {
+
+                        if (text != null
+                                && text.matches("\\d*")) {
+
+                            super.replace(
+                                    fb,
+                                    offset,
+                                    length,
+                                    text,
+                                    attrs
+                            );
+                        }
+                    }
+                };
+
+        ((javax.swing.text.AbstractDocument)
+                mobileField.getDocument())
+                .setDocumentFilter(numbersOnlyFilter);
+
+        ((javax.swing.text.AbstractDocument)
+                cashoutamountField.getDocument())
+                .setDocumentFilter(numbersOnlyFilter);
+    }
+    private void processTransfer() {
+
+        String receiverMobile =
+                mobileField.getText().trim();
+
+        String amountText =
+                cashoutamountField.getText().trim();
+
+        /*
+         * Validate mobile number.
+         */
+        if (receiverMobile.isEmpty()) {
+
+            errorcashoutLabel.setText(
+                    "Please enter the receiver's mobile number."
+            );
+
+            mobileField.requestFocus();
+
+            return;
+        }
+
+        if (!receiverMobile.matches("\\d{11}")) {
+
+            errorcashoutLabel.setText(
+                    "Mobile number must contain exactly 11 digits."
+            );
+
+            mobileField.requestFocus();
+
+            return;
+        }
+
+        /*
+         * Prevent transferring to yourself.
+         */
+        if (receiverMobile.equals(user.getNumber())) {
+
+            errorcashoutLabel.setText(
+                    "You cannot transfer money to your own account."
+            );
+
+            mobileField.requestFocus();
+
+            return;
+        }
+
+        /*
+         * Validate amount.
+         */
+        if (amountText.isEmpty()) {
+
+            errorcashoutLabel.setText(
+                    "Please enter a transfer amount."
+            );
+
+            cashoutamountField.requestFocus();
+
+            return;
+        }
+
+        double amount;
+
+        try {
+
+            amount = Double.parseDouble(amountText);
+
+        } catch (NumberFormatException e) {
+
+            errorcashoutLabel.setText(
+                    "Please enter a valid amount."
+            );
+
+            cashoutamountField.requestFocus();
+
+            return;
+        }
+
+        /*
+         * Amount must be greater than zero.
+         */
+        if (amount <= 0) {
+
+            errorcashoutLabel.setText(
+                    "Amount must be greater than zero."
+            );
+
+            cashoutamountField.requestFocus();
+
+            return;
+        }
+
+        /*
+         * Check sender balance before processing.
+         */
+        if (amount > user.getBalance()) {
+
+            errorcashoutLabel.setText(
+                    "Insufficient balance."
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    String.format(
+                            "You cannot transfer ₱%.2f.\n\n" +
+                                    "Your current balance is ₱%.2f.",
+                            amount,
+                            user.getBalance()
+                    ),
+                    "Insufficient Balance",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            cashoutamountField.requestFocus();
+
+            return;
+        }
+
+        try {
+
+            /*
+             * Process transfer.
+             */
+            boolean success =
+                    transferService.transfer(
+                            user,
+                            receiverMobile,
+                            amount
+                    );
+
+            if (success) {
+
+                /*
+                 * Update displayed balance.
+                 */
+                balanceText.setText(
+                        String.format(
+                                "₱%.2f",
+                                user.getBalance()
+                        )
+                );
+
+                /*
+                 * Refresh recent and history transactions.
+                 */
+                loadTransactions();
+
+                /*
+                 * Clear fields.
+                 */
+                mobileField.setText("");
+                cashoutamountField.setText("");
+                errorcashoutLabel.setText("");
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        String.format(
+                                "Transfer successful!\n\n" +
+                                        "To: %s\n" +
+                                        "Amount: ₱%.2f\n" +
+                                        "Remaining Balance: ₱%.2f",
+                                receiverMobile,
+                                amount,
+                                user.getBalance()
+                        ),
+                        "Transfer Successful",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+
+        } catch (IllegalArgumentException e) {
+
+            errorcashoutLabel.setText(
+                    e.getMessage()
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Transfer Failed",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+        } catch (RuntimeException e) {
+
+            errorcashoutLabel.setText(
+                    "Transfer failed."
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Unable to process transfer:\n"
+                            + e.getMessage(),
+                    "Transfer Error",
                     JOptionPane.ERROR_MESSAGE
             );
 

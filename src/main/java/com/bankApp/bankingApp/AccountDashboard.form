@@ -215,7 +215,7 @@
             <border type="none"/>
             <children>
               <grid id="3ba47" binding="recenttransactionsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="15" left="15" bottom="15" right="15"/>
+                <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -273,7 +273,7 @@
                           <background color="-1445633"/>
                           <editingColumn value="3"/>
                           <enabled value="false"/>
-                          <font name="Segoe UI" size="11" style="0"/>
+                          <font name="Segoe UI" size="10" style="0"/>
                           <foreground color="-16759630"/>
                           <gridColor color="-16757542"/>
                           <opaque value="true"/>
@@ -313,7 +313,7 @@
                 </children>
               </grid>
               <grid id="bfa95" binding="alltransactionsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="15" left="15" bottom="15" right="15"/>
+                <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -357,7 +357,7 @@
                           <background color="-1445633"/>
                           <editingColumn value="3"/>
                           <enabled value="false"/>
-                          <font name="Segoe UI" size="11" style="0"/>
+                          <font name="Segoe UI" size="10" style="0"/>
                           <foreground color="-16759630"/>
                           <gridColor color="-16757542"/>
                           <opaque value="false"/>
@@ -523,7 +523,7 @@
             </constraints>
             <properties>
               <opaque value="false"/>
-              <visible value="true"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>
