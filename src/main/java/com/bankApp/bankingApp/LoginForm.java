@@ -345,7 +345,7 @@ public class LoginForm extends JFrame {
                             "Welcome",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    new AccountDashboard();
+                    new AccountDashboard(user);
                 }
 
 

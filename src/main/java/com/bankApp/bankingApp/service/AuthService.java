@@ -164,4 +164,40 @@ public class AuthService {
 
         return null;
     }
+
+    public boolean changeMpin(
+            int userId,
+            String identifier,
+            String newMpin
+    ) {
+
+        String sql = """
+            UPDATE users
+            SET pin = ?
+            WHERE id = ?
+            AND (number = ? OR email = ?)
+            """;
+
+        try (Connection connection = DbConnectionHelper.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setString(1, newMpin);
+            statement.setInt(2, userId);
+            statement.setString(3, identifier);
+            statement.setString(4, identifier);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(
+                    "Failed to change MPIN.",
+                    e
+            );
+        }
+    }
+    
 }

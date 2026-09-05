@@ -12,16 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionService {
+
     public void saveTransaction(Transaction transaction) {
 
         String sql = """
-            INSERT INTO transactions
-            (user_number, type, amount, date, user_id)
-            VALUES (?, ?, ?, ?, ?)
-            """;
+                INSERT INTO transactions
+                (user_number, type, amount, date, user_id)
+                VALUES (?, ?, ?, ?, ?)
+                """;
 
         try (Connection connection = DbConnectionHelper.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, transaction.getUserNumber());
             statement.setString(2, transaction.getType());
@@ -35,25 +37,29 @@ public class TransactionService {
             statement.executeUpdate();
 
         } catch (SQLException e) {
+
             throw new RuntimeException(
                     "Failed to save transaction.",
                     e
             );
         }
     }
+
+
     public List<Transaction> getTransactions(int userId) {
 
         List<Transaction> transactions = new ArrayList<>();
 
         String sql = """
-            SELECT id, user_number, type, amount, date, user_id
-            FROM transactions
-            WHERE user_id = ?
-            ORDER BY date DESC
-            """;
+                SELECT id, user_number, type, amount, date, user_id
+                FROM transactions
+                WHERE user_id = ?
+                ORDER BY date DESC
+                """;
 
         try (Connection connection = DbConnectionHelper.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setInt(1, userId);
 
@@ -61,12 +67,15 @@ public class TransactionService {
 
                 while (resultSet.next()) {
 
+                    Timestamp timestamp =
+                            resultSet.getTimestamp("date");
+
                     Transaction transaction = new Transaction(
                             resultSet.getInt("id"),
                             resultSet.getString("user_number"),
                             resultSet.getString("type"),
                             resultSet.getDouble("amount"),
-                            resultSet.getTimestamp("date").toLocalDateTime(),
+                            timestamp.toLocalDateTime(),
                             resultSet.getInt("user_id")
                     );
 
@@ -75,6 +84,7 @@ public class TransactionService {
             }
 
         } catch (SQLException e) {
+
             throw new RuntimeException(
                     "Failed to retrieve transactions.",
                     e

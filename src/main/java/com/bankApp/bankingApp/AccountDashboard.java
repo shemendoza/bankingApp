@@ -1,12 +1,17 @@
 package com.bankApp.bankingApp;
 
+import com.bankApp.bankingApp.model.Transaction;
+import com.bankApp.bankingApp.model.User;
+import com.bankApp.bankingApp.service.TransactionService;
+import com.bankApp.bankingApp.service.AuthService;
+import com.bankApp.bankingApp.service.BalanceService;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.ui.FlatLineBorder;
 import java.awt.*;
 import java.util.Objects;
-
+import java.util.List;
 
 public class AccountDashboard extends JFrame {
     private JPanel accountPanel;
@@ -19,8 +24,6 @@ public class AccountDashboard extends JFrame {
     private JLabel availablebalanceLabel;
     private JLabel balanceText;
     private JLabel balanceicon;
-    private JLabel accountNumLabel;
-    private JLabel accountnumberText;
     private JButton cashinBtn;
     private JButton cashoutBtn;
     private JButton profileBtn;
@@ -67,10 +70,15 @@ public class AccountDashboard extends JFrame {
     private JButton logoutBtn;
     private JLabel quoteText;
 
-
-
-    AccountDashboard() {
-
+    private final User user;
+    private final TransactionService transactionService;
+    private final AuthService authService;
+    private final BalanceService balanceService;
+    AccountDashboard(User user) {
+        this.user = user;
+        this.transactionService = new TransactionService();
+        this.authService = new AuthService();
+        this.balanceService = new BalanceService();
 
         setTitle("MLBB - Account Dashboard");
         setContentPane(accountPanel);
@@ -82,6 +90,13 @@ public class AccountDashboard extends JFrame {
 
         historyBtn.putClientProperty("JButton.buttonType", "roundRect");
         recentBtn.putClientProperty("JButton.buttonType", "roundRect");
+        Color blue = new Color(21, 101, 192);
+
+        recentTable.getTableHeader().setBackground(blue);
+        recentTable.getTableHeader().setForeground(Color.WHITE);
+
+        historyTable.getTableHeader().setBackground(blue);
+        historyTable.getTableHeader().setForeground(Color.WHITE);
 
         //cash in panel
         cashinamountField.putClientProperty("JComponent.roundRect", true);
@@ -110,6 +125,15 @@ public class AccountDashboard extends JFrame {
         logoutBtn.addActionListener(e -> {
             new MainDashboard();
             dispose();
+        });
+
+        changempinBtn.addActionListener(e -> changeMpin());
+
+        submitcashinBtn.addActionListener(e -> processCashIn());
+
+        cancelcashinBtn.addActionListener(e -> {
+            cashinamountField.setText("");
+            errorcashinlabel.setText("");
         });
 
 
@@ -218,6 +242,11 @@ public class AccountDashboard extends JFrame {
             recenttransactionsPanel.setVisible(true);
             alltransactionsPanel.setVisible(false);
         });
+        setupTables();
+        loadUserDetails();
+        loadTransactions();
+
+        setupCashInField();
 
         setVisible(true);
     }
@@ -404,16 +433,479 @@ public class AccountDashboard extends JFrame {
         }
     }
 
+    private void loadUserDetails() {
+
+        String fullName = user.getName();
+
+        if (fullName != null && !fullName.trim().isEmpty()) {
+
+            String firstName = fullName.trim().split("\\s+")[0];
+
+            hellonameLabel.setText("Hello, " + firstName);
+
+        } else {
+
+            hellonameLabel.setText("Hello");
+        }
+
+        // Balance
+        balanceText.setText(
+                String.format("₱%.2f", user.getBalance())
+        );
+
+        // Profile
+        nameText.setText(user.getName());
+        numberText.setText(user.getNumber());
+        emailText.setText(user.getEmail());
+    }
+    private void setupTables() {
+
+        recentTable.setModel(
+                new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                                "Date",
+                                "Details",
+                                "Amount"
+                        }
+                ) {
+                    @Override
+                    public boolean isCellEditable(
+                            int row,
+                            int column
+                    ) {
+                        return false;
+                    }
+                }
+        );
+
+        historyTable.setModel(
+                new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                                "Date",
+                                "Details",
+                                "Amount"
+                        }
+                ) {
+                    @Override
+                    public boolean isCellEditable(
+                            int row,
+                            int column
+                    ) {
+                        return false;
+                    }
+                }
+        );
+
+        recentTable.getTableHeader().setReorderingAllowed(false);
+        recentTable.getTableHeader().setResizingAllowed(false);
+
+        historyTable.getTableHeader().setReorderingAllowed(false);
+        historyTable.getTableHeader().setResizingAllowed(false);
+        recentTable.setRowHeight(25);
+        historyTable.setRowHeight(25);
+    }
+    private void loadTransactions() {
+
+        List<Transaction> transactions =
+                transactionService.getTransactions(user.getId());
+
+        loadRecentTransactions(transactions);
+        loadHistoryTransactions(transactions);
+    }
+    private void loadRecentTransactions(
+            List<Transaction> transactions
+    ) {
+
+        javax.swing.table.DefaultTableModel model =
+                (javax.swing.table.DefaultTableModel)
+                        recentTable.getModel();
+
+        model.setRowCount(0);
+
+        int limit = Math.min(5, transactions.size());
+
+        for (int i = 0; i < limit; i++) {
+
+            Transaction transaction = transactions.get(i);
+
+            model.addRow(new Object[]{
+                    formatDate(transaction),
+                    getTransactionDetails(transaction),
+                    String.format(
+                            "₱%.2f",
+                            transaction.getAmount()
+                    )
+            });
+        }
+    }
+    private String getTransactionDetails(Transaction transaction) {
+
+        String type = transaction.getType();
+        String mobileNumber = transaction.getUserNumber();
+
+        if (type == null) {
+            return "";
+        }
+
+        switch (type.toUpperCase()) {
+
+            case "CASH_IN":
+                return "Cash In";
+
+            case "TRANSFER":
+                return "Transfer to " + mobileNumber;
+
+            case "RECEIVED":
+                return "Received from " + mobileNumber;
+
+            default:
+                return type;
+        }
+    }
+    private void loadHistoryTransactions(
+            List<Transaction> transactions
+    ) {
+
+        javax.swing.table.DefaultTableModel model =
+                (javax.swing.table.DefaultTableModel)
+                        historyTable.getModel();
+
+        model.setRowCount(0);
+
+        for (Transaction transaction : transactions) {
+
+            model.addRow(new Object[]{
+                    formatDate(transaction),
+                    getTransactionDetails(transaction),
+                    String.format(
+                            "₱%.2f",
+                            transaction.getAmount()
+                    )
+            });
+        }
+    }
+    private String formatDate(Transaction transaction) {
+
+        return transaction.getDate()
+                .format(
+                        java.time.format.DateTimeFormatter
+                                .ofPattern("yyyy-MM-dd HH:mm:ss")
+                );
+    }
+
+
+    private void changeMpin() {
+
+        JPasswordField newMpinField = new JPasswordField();
+
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+        panel.add(
+                new JLabel("Enter your new MPIN:"),
+                BorderLayout.NORTH
+        );
+
+        panel.add(
+                newMpinField,
+                BorderLayout.CENTER
+        );
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                panel,
+                "Change MPIN",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        String newMpin =
+                new String(newMpinField.getPassword()).trim();
+
+        // Validate MPIN
+        if (!newMpin.matches("\\d{4}")) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "MPIN must contain exactly 4 digits.",
+                    "Invalid MPIN",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            return;
+        }
+
+        // Ask for mobile number or email
+        JTextField identifierField = new JTextField();
+
+        JPanel verificationPanel =
+                new JPanel(new BorderLayout(5, 5));
+
+        verificationPanel.add(
+                new JLabel("Enter your mobile number or email:"),
+                BorderLayout.NORTH
+        );
+
+        verificationPanel.add(
+                identifierField,
+                BorderLayout.CENTER
+        );
+
+        int verificationResult = JOptionPane.showConfirmDialog(
+                this,
+                verificationPanel,
+                "Verify Account",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (verificationResult != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        String identifier =
+                identifierField.getText().trim();
+
+        if (identifier.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter your mobile number or email.",
+                    "Verification Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            return;
+        }
+
+        try {
+
+            boolean changed = authService.changeMpin(
+                    user.getId(),
+                    identifier,
+                    newMpin
+            );
+
+            if (changed) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Your MPIN has been changed successfully.",
+                        "MPIN Changed",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "The mobile number or email does not match your account.",
+                        "Verification Failed",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+        } catch (RuntimeException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Unable to change MPIN:\n" + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            e.printStackTrace();
+        }
+    }
+
+    private void setupCashInField() {
+
+        ((javax.swing.text.AbstractDocument)
+                cashinamountField.getDocument())
+                .setDocumentFilter(new javax.swing.text.DocumentFilter() {
+
+                    @Override
+                    public void insertString(
+                            javax.swing.text.DocumentFilter.FilterBypass fb,
+                            int offset,
+                            String string,
+                            javax.swing.text.AttributeSet attr)
+                            throws javax.swing.text.BadLocationException {
+
+                        if (string != null && string.matches("\\d*")) {
+                            super.insertString(
+                                    fb,
+                                    offset,
+                                    string,
+                                    attr
+                            );
+                        }
+                    }
+
+                    @Override
+                    public void replace(
+                            javax.swing.text.DocumentFilter.FilterBypass fb,
+                            int offset,
+                            int length,
+                            String text,
+                            javax.swing.text.AttributeSet attrs)
+                            throws javax.swing.text.BadLocationException {
+
+                        if (text != null && text.matches("\\d*")) {
+                            super.replace(
+                                    fb,
+                                    offset,
+                                    length,
+                                    text,
+                                    attrs
+                            );
+                        }
+                    }
+                });
+    }
+    private void processCashIn() {
+
+        String amountText =
+                cashinamountField.getText().trim();
+
+        // Check empty
+        if (amountText.isEmpty()) {
+
+            errorcashinlabel.setText(
+                    "Please enter a cash in amount."
+            );
+
+            return;
+        }
+
+        double amount;
+
+        try {
+
+            amount = Double.parseDouble(amountText);
+
+        } catch (NumberFormatException e) {
+
+            errorcashinlabel.setText(
+                    "Please enter a valid amount."
+            );
+
+            return;
+        }
+
+        // Check positive amount
+        if (amount <= 0) {
+
+            errorcashinlabel.setText(
+                    "Amount must be greater than zero."
+            );
+
+            return;
+        }
+
+        try {
+
+            // Calculate new balance
+            double newBalance =
+                    user.getBalance() + amount;
+
+            // Update database
+            balanceService.updateBalance(
+                    user.getId(),
+                    newBalance
+            );
+
+            // Update in-memory User object
+            user.addBalance(amount);
+
+            // Create cash-in transaction
+            Transaction transaction =
+                    new Transaction(
+                            user.getNumber(),
+                            "CASH_IN",
+                            amount,
+                            java.time.LocalDateTime.now(),
+                            user.getId()
+                    );
+
+            // Insert transaction into database
+            transactionService.saveTransaction(
+                    transaction
+            );
+
+            // Update balance displayed on dashboard
+            balanceText.setText(
+                    String.format(
+                            "₱%.2f",
+                            user.getBalance()
+                    )
+            );
+
+            // Refresh transaction tables
+            loadTransactions();
+
+            // Clear input
+            cashinamountField.setText("");
+
+            // Clear error
+            errorcashinlabel.setText("");
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    String.format(
+                            "Cash-in successful!\n\n" +
+                                    "Amount: ₱%.2f\n" +
+                                    "New Balance: ₱%.2f",
+                            amount,
+                            user.getBalance()
+                    ),
+                    "Cash In Successful",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (RuntimeException e) {
+
+            errorcashinlabel.setText(
+                    "Cash-in failed."
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Unable to process cash-in:\n"
+                            + e.getMessage(),
+                    "Cash-In Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         try {
             FlatDarkLaf.setup();
         } catch (Exception e) {
             System.err.println("Failed to initialize FlatLaf");
         }
+        SwingUtilities.invokeLater(() -> {
 
-        //Thread-safe way to launch Swing GUIs
-        SwingUtilities.invokeLater(AccountDashboard::new);
+            User testUser = new User(
+                    1,
+                    "She Mendoza",
+                    "09123456789",
+                    "she@gmail.com",
+                    "1234",
+                    5000.00,
+                    "user"
+            );
+
+            new AccountDashboard(testUser);
+        });
     }
-
 
 }
