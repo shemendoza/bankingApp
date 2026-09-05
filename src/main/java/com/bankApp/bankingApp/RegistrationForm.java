@@ -1,5 +1,7 @@
 package com.bankApp.bankingApp;
 
+import com.bankApp.bankingApp.model.User;
+import com.bankApp.bankingApp.service.AuthService;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
@@ -27,6 +29,8 @@ public class RegistrationForm extends JFrame {
     private JTextField mpinField;
     private JTextField confirmmpinField;
     private JButton mainBtn;
+
+    private final AuthService authService = new AuthService();
 
     RegistrationForm() {
         setTitle("MLBB - Sign Up");
@@ -60,6 +64,8 @@ public class RegistrationForm extends JFrame {
             new LoginForm();
             dispose();
         });
+
+        signUpBtn.addActionListener(e -> registerUser());
 
         // Window icon
         ImageIcon icon = new ImageIcon(
@@ -255,7 +261,153 @@ public class RegistrationForm extends JFrame {
 
         label.repaint();
     }
+    private void registerUser() {
 
+        String fullName = fullnameField.getText().trim();
+        String email = emailField.getText().trim();
+        String mobileNumber = mobilenumField.getText().trim();
+        String mpin = mpinField.getText().trim();
+        String confirmMpin = confirmmpinField.getText().trim();
+
+        // Check empty fields
+        if (fullName.isEmpty()
+                || email.isEmpty()
+                || mobileNumber.isEmpty()
+                || mpin.isEmpty()
+                || confirmMpin.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill in all fields.",
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            return;
+        }
+
+        // Check email
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter a valid email address.",
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            emailField.requestFocus();
+            return;
+        }
+
+        // Check mobile number
+        if (!mobileNumber.matches("\\d{11}")) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Mobile number must contain exactly 11 digits.",
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            mobilenumField.requestFocus();
+            return;
+        }
+
+        // Check MPIN
+        if (!mpin.matches("\\d{4}")) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "MPIN must contain exactly 4 digits.",
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            mpinField.requestFocus();
+            return;
+        }
+
+        // Check matching MPIN
+        if (!mpin.equals(confirmMpin)) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "MPIN and Confirm MPIN do not match.",
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            confirmmpinField.requestFocus();
+            return;
+        }
+
+        // Create User object
+        User user = new User(
+                fullName,
+                mobileNumber,
+                email,
+                mpin,
+                "user"
+        );
+
+        try {
+
+            String result = authService.register(user);
+
+            if ("SUCCESS".equals(result)) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Account created successfully!",
+                        "Registration Successful",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                fullnameField.setText("");
+                emailField.setText("");
+                mobilenumField.setText("");
+                mpinField.setText("");
+                confirmmpinField.setText("");
+
+                new LoginForm();
+                dispose();
+
+            } else if ("EMAIL_EXISTS".equals(result)) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "This email is already registered.",
+                        "Registration Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+                emailField.requestFocus();
+
+            } else if ("MOBILE_EXISTS".equals(result)) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "This mobile number is already registered.",
+                        "Registration Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+                mobilenumField.requestFocus();
+            }
+
+        } catch (RuntimeException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Registration failed:\n" + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
 
         try {

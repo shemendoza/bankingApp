@@ -107,6 +107,10 @@ public class AccountDashboard extends JFrame {
         addTextOutline(emailLabel, new Color(0,60,170), 1);
         addTextOutline(numberLabel, new Color(0,60,170), 1);
 
+        logoutBtn.addActionListener(e -> {
+            new MainDashboard();
+            dispose();
+        });
 
 
         balancePanel.setBorder(

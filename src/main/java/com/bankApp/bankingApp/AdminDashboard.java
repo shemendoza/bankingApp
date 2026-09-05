@@ -40,6 +40,11 @@ public class AdminDashboard extends JFrame {
 
     logoutBtn.putClientProperty("JButton.buttonType", "roundRect");
 
+        logoutBtn.addActionListener(e -> {
+            new MainDashboard();
+            dispose();
+        });
+
     viewBox.setBorder(
           new FlatLineBorder(
                         new Insets(1, 1, 1, 1),
