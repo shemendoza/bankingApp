@@ -462,7 +462,7 @@ public class AccountDashboard extends JFrame {
 
         // Balance
         balanceText.setText(
-                String.format("₱%.2f", user.getBalance())
+                String.format("₱%,.2f", user.getBalance())
         );
 
         // Profile
@@ -546,7 +546,7 @@ public class AccountDashboard extends JFrame {
                     formatDate(transaction),
                     getTransactionDetails(transaction),
                     String.format(
-                            "₱%.2f",
+                            "₱%,.2f",
                             transaction.getAmount()
                     )
             });
@@ -592,7 +592,7 @@ public class AccountDashboard extends JFrame {
                     formatDate(transaction),
                     getTransactionDetails(transaction),
                     String.format(
-                            "₱%.2f",
+                            "₱%,.2f",
                             transaction.getAmount()
                     )
             });
@@ -848,7 +848,7 @@ public class AccountDashboard extends JFrame {
              */
             balanceText.setText(
                     String.format(
-                            "₱%.2f",
+                            "₱%,.2f",
                             user.getBalance()
                     )
             );
@@ -868,8 +868,8 @@ public class AccountDashboard extends JFrame {
                     this,
                     String.format(
                             "Cash-in successful!\n\n" +
-                                    "Amount: ₱%.2f\n" +
-                                    "New Balance: ₱%.2f",
+                                    "Amount: ₱%,.2f\n" +
+                                    "New Balance: ₱%,.2f",
                             amount,
                             user.getBalance()
                     ),
@@ -1067,8 +1067,8 @@ public class AccountDashboard extends JFrame {
             JOptionPane.showMessageDialog(
                     this,
                     String.format(
-                            "You cannot transfer ₱%.2f.\n\n" +
-                                    "Your current balance is ₱%.2f.",
+                            "You cannot transfer ₱%,.2f.\n\n" +
+                                    "Your current balance is ₱%,.2f.",
                             amount,
                             user.getBalance()
                     ),
@@ -1100,7 +1100,7 @@ public class AccountDashboard extends JFrame {
                  */
                 balanceText.setText(
                         String.format(
-                                "₱%.2f",
+                                "₱%,.2f",
                                 user.getBalance()
                         )
                 );
@@ -1122,8 +1122,8 @@ public class AccountDashboard extends JFrame {
                         String.format(
                                 "Transfer successful!\n\n" +
                                         "To: %s\n" +
-                                        "Amount: ₱%.2f\n" +
-                                        "Remaining Balance: ₱%.2f",
+                                        "Amount: ₱%,.2f\n" +
+                                        "Remaining Balance: ₱%,.2f",
                                 receiverMobile,
                                 amount,
                                 user.getBalance()

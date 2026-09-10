@@ -396,7 +396,7 @@ public class AdminDashboard extends JFrame {
                                 user.getEmail(),
                                 user.getNumber(),
                                 String.format(
-                                        "₱%.2f",
+                                        "₱%,.2f",
                                         user.getBalance()
                                 )
                         }
@@ -586,7 +586,7 @@ public class AdminDashboard extends JFrame {
                                 userName,
                                 transaction.getType(),
                                 String.format(
-                                        "₱%.2f",
+                                        "₱%,.2f",
                                         transaction.getAmount()
                                 )
                         }
@@ -678,7 +678,7 @@ public class AdminDashboard extends JFrame {
                                 formatDate(transaction),
                                 getTransactionDetails(transaction),
                                 String.format(
-                                        "₱%.2f",
+                                        "₱%,.2f",
                                         transaction.getAmount()
                                 )
                         }
