@@ -1055,31 +1055,7 @@ public class AccountDashboard extends JFrame {
             return;
         }
 
-        /*
-         * Check sender balance before processing.
-         */
-        if (amount > user.getBalance()) {
-
-            errorcashoutLabel.setText(
-                    "Insufficient balance."
-            );
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    String.format(
-                            "You cannot transfer ₱%,.2f.\n\n" +
-                                    "Your current balance is ₱%,.2f.",
-                            amount,
-                            user.getBalance()
-                    ),
-                    "Insufficient Balance",
-                    JOptionPane.ERROR_MESSAGE
-            );
-
-            cashoutamountField.requestFocus();
-
-            return;
-        }
+      
 
         try {
 

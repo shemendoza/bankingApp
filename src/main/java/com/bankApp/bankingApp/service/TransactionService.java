@@ -13,7 +13,9 @@ import java.util.List;
 
 public class TransactionService {
 
-    public void saveTransaction(Transaction transaction) {
+    public void saveTransaction(
+            Transaction transaction
+    ) {
 
         try (Connection connection =
                      DbConnectionHelper.getConnection()) {
@@ -77,13 +79,21 @@ public class TransactionService {
         }
     }
 
-    public List<Transaction> getTransactions(int userId) {
+    public List<Transaction> getTransactions(
+            int userId
+    ) {
 
         List<Transaction> transactions =
                 new ArrayList<>();
 
         String sql = """
-                SELECT id, user_number, type, amount, date, user_id
+                SELECT
+                    id,
+                    user_number,
+                    type,
+                    amount,
+                    date,
+                    user_id
                 FROM transactions
                 WHERE user_id = ?
                 ORDER BY date DESC
@@ -94,7 +104,10 @@ public class TransactionService {
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setInt(1, userId);
+            statement.setInt(
+                    1,
+                    userId
+            );
 
             try (ResultSet resultSet =
                          statement.executeQuery()) {
@@ -139,24 +152,27 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions() {
 
-        List<Transaction> transactions = new ArrayList<>();
+        List<Transaction> transactions =
+                new ArrayList<>();
 
         String sql = """
-            SELECT
-                t.id,
-                t.user_number,
-                t.type,
-                t.amount,
-                t.date,
-                t.user_id
-            FROM transactions t
-            ORDER BY t.date DESC
-            """;
+                SELECT
+                    id,
+                    user_number,
+                    type,
+                    amount,
+                    date,
+                    user_id
+                FROM transactions
+                ORDER BY date DESC
+                """;
 
-        try (Connection connection = DbConnectionHelper.getConnection();
+        try (Connection connection =
+                     DbConnectionHelper.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet =
+                     statement.executeQuery()) {
 
             while (resultSet.next()) {
 
@@ -166,11 +182,19 @@ public class TransactionService {
                 Transaction transaction =
                         new Transaction(
                                 resultSet.getInt("id"),
-                                resultSet.getString("user_number"),
-                                resultSet.getString("type"),
-                                resultSet.getDouble("amount"),
+                                resultSet.getString(
+                                        "user_number"
+                                ),
+                                resultSet.getString(
+                                        "type"
+                                ),
+                                resultSet.getDouble(
+                                        "amount"
+                                ),
                                 timestamp.toLocalDateTime(),
-                                resultSet.getInt("user_id")
+                                resultSet.getInt(
+                                        "user_id"
+                                )
                         );
 
                 transactions.add(transaction);

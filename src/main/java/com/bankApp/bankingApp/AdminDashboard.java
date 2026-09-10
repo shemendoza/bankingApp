@@ -51,6 +51,9 @@ public class AdminDashboard extends JFrame {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    private static final Color BLUE =
+            new Color(21, 101, 192);
+
 
     AdminDashboard() {
 
@@ -64,24 +67,24 @@ public class AdminDashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // =========================================================
+        // BUTTON STYLING
+        // =========================================================
 
         logoutBtn.putClientProperty(
                 "JButton.buttonType",
                 "roundRect"
         );
 
-        logoutBtn.addActionListener(e -> {
 
-            new MainDashboard();
-            dispose();
-
-        });
-
+        // =========================================================
+        // VIEW COMBO BOX
+        // =========================================================
 
         viewBox.setBorder(
                 new FlatLineBorder(
                         new Insets(1, 1, 1, 1),
-                        new Color(21, 101, 192),
+                        BLUE,
                         1,
                         20
                 )
@@ -91,10 +94,15 @@ public class AdminDashboard extends JFrame {
                 e -> updateViewPanel()
         );
 
+
+        // =========================================================
+        // USER COMBO BOX
+        // =========================================================
+
         userBox.setBorder(
                 new FlatLineBorder(
                         new Insets(1, 1, 1, 1),
-                        new Color(21, 101, 192),
+                        BLUE,
                         1,
                         20
                 )
@@ -104,6 +112,22 @@ public class AdminDashboard extends JFrame {
                 e -> loadTransactionsPerUser()
         );
 
+
+        // =========================================================
+        // LOGOUT
+        // =========================================================
+
+        logoutBtn.addActionListener(e -> {
+
+            new MainDashboard();
+            dispose();
+
+        });
+
+
+        // =========================================================
+        // WINDOW ICON
+        // =========================================================
 
         ImageIcon icon = new ImageIcon(
                 Objects.requireNonNull(
@@ -115,6 +139,10 @@ public class AdminDashboard extends JFrame {
 
         setIconImage(icon.getImage());
 
+
+        // =========================================================
+        // BACKGROUND
+        // =========================================================
 
         ImageIcon backgroundIcon = new ImageIcon(
                 Objects.requireNonNull(
@@ -160,12 +188,31 @@ public class AdminDashboard extends JFrame {
 
         setContentPane(backgroundPanel);
 
+
+        // =========================================================
+        // INITIALIZE TABLES
+        // =========================================================
+
         setupTables();
 
 
+        // =========================================================
+        // LOAD USERS ONCE
+        // =========================================================
+
         loadUsers();
 
+
+        // =========================================================
+        // LOAD ADMIN GREETING
+        // =========================================================
+
         loadAdminName();
+
+
+        // =========================================================
+        // SHOW INITIAL VIEW
+        // =========================================================
 
         updateViewPanel();
 
@@ -173,28 +220,36 @@ public class AdminDashboard extends JFrame {
         setVisible(true);
     }
 
+
+    // =============================================================
+    // LOAD ADMIN NAME
+    // =============================================================
+
     private void loadAdminName() {
 
-        List<User> users = allUsers;
+        if (allUsers == null || allUsers.isEmpty()) {
 
-        // If you have a logged-in admin User, use that User instead.
-        // For now, find the admin account from the loaded users.
-
-        if (users == null || users.isEmpty()) {
             hellonameLabel.setText("Hello");
+
             return;
         }
 
-        for (User user : users) {
 
-            if ("admin".equalsIgnoreCase(user.getRole())) {
+        for (User user : allUsers) {
+
+            if ("admin".equalsIgnoreCase(
+                    user.getRole()
+            )) {
 
                 String firstName =
                         getFirstName(user.getName());
 
                 if (firstName.isEmpty()) {
+
                     hellonameLabel.setText("Hello");
+
                 } else {
+
                     hellonameLabel.setText(
                             "Hello, " + firstName
                     );
@@ -206,16 +261,26 @@ public class AdminDashboard extends JFrame {
 
         hellonameLabel.setText("Hello");
     }
+
+
+    // =============================================================
+    // TRANSACTION DETAILS
+    // =============================================================
+
     private String getTransactionDetails(
             Transaction transaction
     ) {
 
-        String type = transaction.getType();
-        String mobileNumber = transaction.getUserNumber();
+        String type =
+                transaction.getType();
+
+        String mobileNumber =
+                transaction.getUserNumber();
 
         if (type == null) {
             return "";
         }
+
 
         switch (type.toUpperCase()) {
 
@@ -233,17 +298,16 @@ public class AdminDashboard extends JFrame {
         }
     }
 
+
     // =============================================================
     // TABLE SETUP
     // =============================================================
 
     private void setupTables() {
 
-        Color blue = new Color(21, 101, 192);
-
 
         // ---------------------------------------------------------
-        // ALL USERS TABLE
+        // ALL USERS
         // ---------------------------------------------------------
 
         userTable.setModel(
@@ -278,7 +342,7 @@ public class AdminDashboard extends JFrame {
 
 
         // ---------------------------------------------------------
-        // ALL TRANSACTIONS TABLE
+        // ALL TRANSACTIONS
         // ---------------------------------------------------------
 
         transactionsTable.setModel(
@@ -287,7 +351,7 @@ public class AdminDashboard extends JFrame {
                         new String[]{
                                 "Date",
                                 "Name",
-                                "Type",
+                                "Details",
                                 "Amount"
                         }
                 ) {
@@ -313,7 +377,7 @@ public class AdminDashboard extends JFrame {
 
 
         // ---------------------------------------------------------
-        // TRANSACTIONS PER USER TABLE
+        // TRANSACTIONS PER USER
         // ---------------------------------------------------------
 
         transactionsperuserTable.setModel(
@@ -351,21 +415,21 @@ public class AdminDashboard extends JFrame {
         // ---------------------------------------------------------
 
         userTable.getTableHeader()
-                .setBackground(blue);
+                .setBackground(BLUE);
 
         userTable.getTableHeader()
                 .setForeground(Color.WHITE);
 
 
         transactionsTable.getTableHeader()
-                .setBackground(blue);
+                .setBackground(BLUE);
 
         transactionsTable.getTableHeader()
                 .setForeground(Color.WHITE);
 
 
         transactionsperuserTable.getTableHeader()
-                .setBackground(blue);
+                .setBackground(BLUE);
 
         transactionsperuserTable.getTableHeader()
                 .setForeground(Color.WHITE);
@@ -380,7 +444,9 @@ public class AdminDashboard extends JFrame {
 
         try {
 
-            allUsers = authService.getAllUsers();
+            allUsers =
+                    authService.getAllUsers();
+
 
             DefaultTableModel model =
                     (DefaultTableModel)
@@ -388,8 +454,13 @@ public class AdminDashboard extends JFrame {
 
             model.setRowCount(0);
 
+
+            userBox.removeAllItems();
+
+
             for (User user : allUsers) {
 
+                // All users table
                 model.addRow(
                         new Object[]{
                                 user.getName(),
@@ -401,15 +472,13 @@ public class AdminDashboard extends JFrame {
                                 )
                         }
                 );
-            }
 
 
-            userBox.removeAllItems();
-
-            for (User user : allUsers) {
-
+                // User selection combo box
                 String firstName =
-                        getFirstName(user.getName());
+                        getFirstName(
+                                user.getName()
+                        );
 
                 userBox.addItem(
                         new UserComboItem(
@@ -419,7 +488,8 @@ public class AdminDashboard extends JFrame {
                 );
             }
 
-            // Load admin greeting
+
+            // Update admin greeting
             loadAdminName();
 
         } catch (RuntimeException e) {
@@ -435,10 +505,12 @@ public class AdminDashboard extends JFrame {
 
 
     // =============================================================
-    // GET FIRST WORD OF NAME
+    // GET FIRST NAME
     // =============================================================
 
-    private String getFirstName(String fullName) {
+    private String getFirstName(
+            String fullName
+    ) {
 
         if (fullName == null ||
                 fullName.trim().isEmpty()) {
@@ -453,7 +525,7 @@ public class AdminDashboard extends JFrame {
 
 
     // =============================================================
-    // UPDATE VIEW PANEL
+    // UPDATE VIEW
     // =============================================================
 
     private void updateViewPanel() {
@@ -465,7 +537,7 @@ public class AdminDashboard extends JFrame {
 
 
         // ---------------------------------------------------------
-        // HIDE EVERYTHING
+        // HIDE ALL PANELS
         // ---------------------------------------------------------
 
         usersPanel.setVisible(false);
@@ -495,7 +567,9 @@ public class AdminDashboard extends JFrame {
         // VIEW ALL USERS
         // ---------------------------------------------------------
 
-        if ("View All Users".equalsIgnoreCase(selected)) {
+        if ("View All Users".equalsIgnoreCase(
+                selected
+        )) {
 
             usersPanel.setVisible(true);
 
@@ -504,7 +578,12 @@ public class AdminDashboard extends JFrame {
                     true
             );
 
-            loadUsers();
+            /*
+             * Do NOT reload users here.
+             *
+             * Users were already loaded when the
+             * dashboard was initialized.
+             */
         }
 
 
@@ -584,7 +663,9 @@ public class AdminDashboard extends JFrame {
                         new Object[]{
                                 formatDate(transaction),
                                 userName,
-                                transaction.getType(),
+                                getTransactionDetails(
+                                        transaction
+                                ),
                                 String.format(
                                         "₱%,.2f",
                                         transaction.getAmount()
@@ -606,14 +687,17 @@ public class AdminDashboard extends JFrame {
 
 
     // =============================================================
-    // GET USER NAME FROM USER ID
+    // GET USER NAME
     // =============================================================
 
-    private String getUserNameById(int userId) {
+    private String getUserNameById(
+            int userId
+    ) {
 
         if (allUsers == null) {
             return "";
         }
+
 
         for (User user : allUsers) {
 
@@ -622,6 +706,7 @@ public class AdminDashboard extends JFrame {
                 return user.getName();
             }
         }
+
 
         return "";
     }
@@ -676,7 +761,9 @@ public class AdminDashboard extends JFrame {
                 model.addRow(
                         new Object[]{
                                 formatDate(transaction),
-                                getTransactionDetails(transaction),
+                                getTransactionDetails(
+                                        transaction
+                                ),
                                 String.format(
                                         "₱%,.2f",
                                         transaction.getAmount()
@@ -698,7 +785,7 @@ public class AdminDashboard extends JFrame {
 
 
     // =============================================================
-    // CLEAR TRANSACTIONS PER USER
+    // CLEAR USER TRANSACTIONS
     // =============================================================
 
     private void clearTransactionsPerUserTable() {
@@ -716,7 +803,9 @@ public class AdminDashboard extends JFrame {
     // FORMAT DATE
     // =============================================================
 
-    private String formatDate(Transaction transaction) {
+    private String formatDate(
+            Transaction transaction
+    ) {
 
         if (transaction.getDate() == null) {
             return "";

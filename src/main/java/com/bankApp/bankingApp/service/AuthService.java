@@ -14,16 +14,11 @@ public class AuthService {
 
     public String register(User user) {
 
-        String checkEmailSql = """
-                SELECT id
+        String checkUserSql = """
+                SELECT email, number
                 FROM users
                 WHERE email = ?
-                """;
-
-        String checkMobileSql = """
-                SELECT id
-                FROM users
-                WHERE number = ?
+                OR number = ?
                 """;
 
         String insertSql = """
@@ -34,30 +29,30 @@ public class AuthService {
 
         try (Connection connection = DbConnectionHelper.getConnection()) {
 
-            // Check email
+            // Check existing email or mobile number
             try (PreparedStatement statement =
-                         connection.prepareStatement(checkEmailSql)) {
+                         connection.prepareStatement(checkUserSql)) {
 
                 statement.setString(1, user.getEmail());
+                statement.setString(2, user.getNumber());
 
                 try (ResultSet resultSet = statement.executeQuery()) {
 
-                    if (resultSet.next()) {
-                        return "EMAIL_EXISTS";
-                    }
-                }
-            }
+                    while (resultSet.next()) {
 
-            // Check mobile number
-            try (PreparedStatement statement =
-                         connection.prepareStatement(checkMobileSql)) {
+                        String existingEmail =
+                                resultSet.getString("email");
 
-                statement.setString(1, user.getNumber());
+                        String existingNumber =
+                                resultSet.getString("number");
 
-                try (ResultSet resultSet = statement.executeQuery()) {
+                        if (user.getEmail().equalsIgnoreCase(existingEmail)) {
+                            return "EMAIL_EXISTS";
+                        }
 
-                    if (resultSet.next()) {
-                        return "MOBILE_EXISTS";
+                        if (user.getNumber().equals(existingNumber)) {
+                            return "MOBILE_EXISTS";
+                        }
                     }
                 }
             }
@@ -80,6 +75,24 @@ public class AuthService {
 
         } catch (SQLException e) {
 
+            // MySQL duplicate-key protection
+            if (e.getErrorCode() == 1062) {
+
+                String message = e.getMessage();
+
+                if (message != null &&
+                        message.toLowerCase().contains("email")) {
+                    return "EMAIL_EXISTS";
+                }
+
+                if (message != null &&
+                        message.toLowerCase().contains("number")) {
+                    return "MOBILE_EXISTS";
+                }
+
+                return "DUPLICATE";
+            }
+
             throw new RuntimeException(
                     "Failed to register user.",
                     e
@@ -97,8 +110,10 @@ public class AuthService {
                 WHERE number = ?
                 """;
 
-        try (Connection connection = DbConnectionHelper.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection =
+                     DbConnectionHelper.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, mobileNumber);
 
@@ -106,16 +121,18 @@ public class AuthService {
 
                 if (resultSet.next()) {
 
-                    String storedPin = resultSet.getString("pin");
+                    String storedPin =
+                            resultSet.getString("pin");
 
-                    if (storedPin.equals(pin)) {
+                    if (storedPin != null &&
+                            storedPin.equals(pin)) {
 
                         return new User(
                                 resultSet.getInt("id"),
                                 resultSet.getString("name"),
                                 resultSet.getString("number"),
                                 resultSet.getString("email"),
-                                resultSet.getString("pin"),
+                                storedPin,
                                 resultSet.getDouble("balance"),
                                 resultSet.getString("role")
                         );
@@ -144,8 +161,10 @@ public class AuthService {
                 WHERE email = ?
                 """;
 
-        try (Connection connection = DbConnectionHelper.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection =
+                     DbConnectionHelper.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, email);
 
@@ -167,6 +186,8 @@ public class AuthService {
         return null;
     }
 
+
+    // CHANGE MPIN
     public boolean changeMpin(
             int userId,
             String identifier,
@@ -174,13 +195,14 @@ public class AuthService {
     ) {
 
         String sql = """
-            UPDATE users
-            SET pin = ?
-            WHERE id = ?
-            AND (number = ? OR email = ?)
-            """;
+                UPDATE users
+                SET pin = ?
+                WHERE id = ?
+                AND (number = ? OR email = ?)
+                """;
 
-        try (Connection connection = DbConnectionHelper.getConnection();
+        try (Connection connection =
+                     DbConnectionHelper.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
@@ -189,7 +211,8 @@ public class AuthService {
             statement.setString(3, identifier);
             statement.setString(4, identifier);
 
-            int rowsUpdated = statement.executeUpdate();
+            int rowsUpdated =
+                    statement.executeUpdate();
 
             return rowsUpdated > 0;
 
@@ -202,20 +225,24 @@ public class AuthService {
         }
     }
 
+
+    // GET ALL USERS
     public List<User> getAllUsers() {
 
         List<User> users = new ArrayList<>();
 
         String sql = """
-            SELECT id, name, number, email, pin, balance, role
-            FROM users
-            ORDER BY id ASC
-            """;
+                SELECT id, name, number, email, pin, balance, role
+                FROM users
+                ORDER BY id ASC
+                """;
 
-        try (Connection connection = DbConnectionHelper.getConnection();
+        try (Connection connection =
+                     DbConnectionHelper.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet =
+                     statement.executeQuery()) {
 
             while (resultSet.next()) {
 

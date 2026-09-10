@@ -18,9 +18,13 @@ public class CashInService {
         this.transactionService = new TransactionService();
     }
 
-    public void cashIn(User user, double amount) {
+    public void cashIn(
+            User user,
+            double amount
+    ) {
 
         if (amount <= 0) {
+
             throw new IllegalArgumentException(
                     "Cash-in amount must be greater than zero."
             );
@@ -31,29 +35,17 @@ public class CashInService {
 
             try {
 
-                /*
-                 * Start database transaction.
-                 */
                 connection.setAutoCommit(false);
 
-                /*
-                 * Calculate new balance.
-                 */
                 double newBalance =
                         user.getBalance() + amount;
 
-                /*
-                 * Update balance using BalanceService.
-                 */
                 balanceService.updateBalance(
                         connection,
                         user.getId(),
                         newBalance
                 );
 
-                /*
-                 * Create transaction.
-                 */
                 Transaction transaction =
                         new Transaction(
                                 user.getNumber(),
@@ -63,33 +55,18 @@ public class CashInService {
                                 user.getId()
                         );
 
-                /*
-                 * Save transaction using
-                 * TransactionService.
-                 */
                 transactionService.saveTransaction(
                         connection,
                         transaction
                 );
 
-                /*
-                 * Commit both operations.
-                 */
                 connection.commit();
 
-                /*
-                 * Update in-memory User object
-                 * only after successful commit.
-                 */
                 user.addBalance(amount);
-
                 user.addTransaction(transaction);
 
             } catch (Exception e) {
 
-                /*
-                 * Undo all database changes.
-                 */
                 connection.rollback();
 
                 if (e instanceof IllegalArgumentException) {
