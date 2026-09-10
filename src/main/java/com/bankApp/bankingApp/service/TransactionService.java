@@ -136,4 +136,54 @@ public class TransactionService {
 
         return transactions;
     }
+
+    public List<Transaction> getAllTransactions() {
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        String sql = """
+            SELECT
+                t.id,
+                t.user_number,
+                t.type,
+                t.amount,
+                t.date,
+                t.user_id
+            FROM transactions t
+            ORDER BY t.date DESC
+            """;
+
+        try (Connection connection = DbConnectionHelper.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+
+                Timestamp timestamp =
+                        resultSet.getTimestamp("date");
+
+                Transaction transaction =
+                        new Transaction(
+                                resultSet.getInt("id"),
+                                resultSet.getString("user_number"),
+                                resultSet.getString("type"),
+                                resultSet.getDouble("amount"),
+                                timestamp.toLocalDateTime(),
+                                resultSet.getInt("user_id")
+                        );
+
+                transactions.add(transaction);
+            }
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(
+                    "Failed to retrieve all transactions.",
+                    e
+            );
+        }
+
+        return transactions;
+    }
 }

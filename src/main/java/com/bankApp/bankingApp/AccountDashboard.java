@@ -69,7 +69,6 @@ public class AccountDashboard extends JFrame {
     private JButton changempinBtn;
     private JLabel emailText;
     private JButton logoutBtn;
-    private JLabel quoteText;
 
     private final User user;
     private final TransactionService transactionService;
@@ -223,7 +222,6 @@ public class AccountDashboard extends JFrame {
 
         setContentPane(backgroundPanel);
 
-        addTextOutline(quoteText, Color.black, 1);
 
 
         mainBtn.addActionListener(e -> {

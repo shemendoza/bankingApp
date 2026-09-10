@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthService {
 
@@ -199,5 +201,45 @@ public class AuthService {
             );
         }
     }
-    
+
+    public List<User> getAllUsers() {
+
+        List<User> users = new ArrayList<>();
+
+        String sql = """
+            SELECT id, name, number, email, pin, balance, role
+            FROM users
+            ORDER BY id ASC
+            """;
+
+        try (Connection connection = DbConnectionHelper.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+
+                User user = new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("number"),
+                        resultSet.getString("email"),
+                        resultSet.getString("pin"),
+                        resultSet.getDouble("balance"),
+                        resultSet.getString("role")
+                );
+
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(
+                    "Failed to retrieve users.",
+                    e
+            );
+        }
+
+        return users;
+    }
 }
